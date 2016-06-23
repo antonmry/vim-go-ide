@@ -9,3 +9,5 @@ set re=1
 
 # https://github.com/spf13/spf13-vim/issues/539
 let g:neosnippet#disable_runtime_snippets = { "_": 1,  }
+
+let g:go_guru_scope = "github.com/antonmry/leanmanager","github.com/antonmry/antonmry"[]
