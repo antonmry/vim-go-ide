@@ -137,7 +137,14 @@ let g:neocomplete#force_omni_input_patterns.go = '[^.[:digit:] *\t]\.'
 " Vim-go
 "------------------------------------------------------------------------------
 let g:go_fmt_fail_silently = 1
+let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck']
 let g:go_fmt_command = "gofmt" "Explicited the formater plugin (gofmt, goimports, goreturn...)
+
+" Go to definitions
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>e <Plug>(go-rename)
 
 " Show a list of interfaces which is implemented by the type under your cursor
 au FileType go nmap <Leader>s <Plug>(go-implements)
@@ -158,11 +165,15 @@ au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 
+" Goimports 
+au FileType go nmap <leader>gi <Plug>(go-imports)
+
 " By default syntax-highlighting for Functions, Methods and Structs is disabled.
 " Let's enable them!
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_snippet_engine = "neosnippet"
 
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_type_go = {  
@@ -196,15 +207,13 @@ let g:tagbar_type_go = {
 "------------------------------------------------------------------------------
 " NeoSnippet
 "------------------------------------------------------------------------------
-
-let g:neosnippet#snippets_directory='~/.vim_go_runtime/bundle/pristine/neosnippet-snippets/neosnippets'
-
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
+"
 "imap <expr><TAB>
 " \ pumvisible() ? "\<C-n>" :
 " \ neosnippet#expandable_or_jumpable() ?
@@ -217,3 +226,14 @@ if has('conceal')
     set conceallevel=2 concealcursor=niv
 endif
 
+imap <expr><TAB>
+\ pumvisible() ? "\<C-n>" :
+\ neosnippet#expandable_or_jumpable() ?
+\    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+   set conceallevel=2 concealcursor=niv
+endif
