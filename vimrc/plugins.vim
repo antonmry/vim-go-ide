@@ -4,14 +4,6 @@ call pathogen#infect('~/.vim_go_runtime/bundle/pristine/{}')
 call pathogen#helptags()
 
 "------------------------------------------------------------------------------
-" Custom color scheme
-"------------------------------------------------------------------------------
-try
-    colorscheme foursee
-catch
-endtry
-
-"------------------------------------------------------------------------------
 " NERDTree
 "------------------------------------------------------------------------------
 
@@ -173,6 +165,12 @@ au FileType go nmap <leader>gi <Plug>(go-imports)
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+
 let g:go_snippet_engine = "neosnippet"
 
 nmap <F8> :TagbarToggle<CR>
